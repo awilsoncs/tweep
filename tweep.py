@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 import argparse
 import os
 import sys
@@ -13,7 +14,7 @@ APP_SECRET = "TWEEP_SECRET"
 
 def parse_args():
     parser = argparse.ArgumentParser("Simplified command line tweeting.")
-    parser.add_argument("msg", type=str, nargs="?", help="Tweet the given message")
+    parser.add_argument("msg", type=str, nargs="*", help="Tweet the given message")
     parser.add_argument("-f", "--feed", action="store_true", help="Show all recent tweets from feed")
     args = parser.parse_args()
     return args
@@ -79,8 +80,8 @@ def main(args):
 
     api = get_api(key, secret, app_key, app_secret)
     
-    if args.msg:
-        tweet(api, args.msg)
+    if len(args.msg) is not 0:
+        tweet(api, " ".join(args.msg))
     return 0
 
 if __name__ == "__main__":
